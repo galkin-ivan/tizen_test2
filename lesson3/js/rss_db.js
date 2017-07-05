@@ -86,6 +86,7 @@ function getFeed(){
 		    	  	image.crossOrigin = "Anonymous";
 		    	  	$(image).data("title", $(this).find("title").text());
 		    	  	$(image).data("description", $(this).find("description").text());
+		    	  	$(image).data("pubDate", $(this).find("pubDate").text());
 		            image.onload = function() {
 		            	console.log("str");
 		            	var canvas = document.createElement('CANVAS');
@@ -98,7 +99,7 @@ function getFeed(){
 		            	
 		            	console.log($(this).data("title"));
 		            	//canvas.toDataURL("image/jpeg") v  $(this).find("enclosure").attr('url')
-		            	arr[0] = { title:$(this).data("title"), description:$(this).data("discription"), image:canvas.toDataURL("image/png")};
+		            	arr[0] = { title:$(this).data("title"), description:$(this).data("discription"), image:canvas.toDataURL("image/png"), pubdate:$(this).data("pubDate")};
 			    	
 		            	setData(arr[0]); // чем плоха данная схема? переделать на передачу массива.
 		            };
