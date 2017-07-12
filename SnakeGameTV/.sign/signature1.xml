@@ -4,7 +4,7 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>3h4E1gjJjPz8jlHNh8mTuDqJ8lJKvMOP/S8t4zTXd/I=</DigestValue>
+<DigestValue>S4410tZOFIqnam1VzGe7EAwN/tbnrbH67uBhJ7PEDwc=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -20,11 +20,15 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>nn69nzhh2WeykwnHb4hRdSg4MwPNoKHA2k+oQJtgVmQ=</DigestValue>
+<DigestValue>Ir2szaZPBuNR3SENP9qHM2s9jR7X2fMcu0rqNYzJO9I=</DigestValue>
+</Reference>
+<Reference URI="js%2Fbabylon.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>DTo4G+Y8tpSudFZaijZ9X0iA4UAiH2U5gg7diwhJ1/Q=</DigestValue>
 </Reference>
 <Reference URI="js%2Fmain.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>t7g2UYkT7MfFUT5hz4nftUFju6uY9p4vTVtSnwrJM3A=</DigestValue>
+<DigestValue>Dn1qzDutAuWYiU33Dmwuob2ox+79mP6MquKcYhR5LMw=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -35,11 +39,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-bnuXAHqc3qpc6+m1YacXN+f4FooF+0XJwlUxjPwucrIOXC/42M2grbli4BRDCvAtOR+2KJL8zcsH
-ETi1AGTkwowu+Kqcr/tieE2A/ZSqOLcLTrivRLhhL7FGoDq/CmO0FGZSUKF8Rftddl322YKwTtJF
-5h1noQ3Ep6lOSNSmGwiNKVF6OROUoSfaQ0/AWjznB5fhwDs4BySumkBSgbZv5Wg1IW7lwuAeCiAW
-TOgAwnjg7Vp1jz+vAeXwOTBby+bEdQVQfsdLzye0ziRTbq3DwVdVhyE9AdUcNgO2DCxItEPXDy7d
-zgukMHVaCbLwBWQ+GD3zQdR3kFXXoCdyOW0QdQ==
+jTW35ECHXM25a14wAwFceo92M7qW4aMl6wCK25drgLMaVVCJTQjtwJFkAlgcp+N4KMnvCDDv+RXT
+pwObW2JGs2BenMWYn+/vBtijhUfQXmCS09A//FTnh8X1IZ2nMbLZDGycomVrAbLB+JowMVFeVH7Q
+CVH9D34FCjQeV1Dz36cn6kCJVQrECJCPz80VwVEJ5RnOUD8yWVa0GMANVMJKhfsCZau0o8OLI7a9
+TnIPdqiV3cA3h+Cj7KeF/JagJce4MuLjlfMlLW1/aNKTVWr8tRl5n9CyYSwxtdxo8rKtzG2Zegm+
+raUjdQxkdDV+AKGySHuVbyL6pZDL2Eu1dRUXPw==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

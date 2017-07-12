@@ -1,98 +1,43 @@
 window.onload = function(){
-	var gl; // глобальная переменная для контекста WebGL
 	
+	var canvas = document.getElementById('gamecanvas');
 	
-			console.log('This is working');
+	var engine = new BABYLON.Engine(canvas, true);
+	
+	var createScene = function() {
+		// This creates a basic Babylon Scene object (non-mesh)
+	    var scene = new BABYLON.Scene(engine);
 
-			var canvas = document.getElementById('gamecanvas');
-			var gl = canvas.getContext('webgl');
+	    // This creates and positions a free camera (non-mesh)
+	    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
 
-			if (!gl) {
-				console.log('WebGL not supported, falling back on experimental-webgl');
-				gl = canvas.getContext('experimental-webgl');
-			}
+	    // This targets the camera to scene origin
+	    camera.setTarget(BABYLON.Vector3.Zero());
 
-			if (!gl) {
-				alert('Your browser does not support WebGL');
-			}
+	    // This attaches the camera to the canvas
+	    camera.attachControl(canvas, true);
 
-			gl.clearColor(0.75, 0.85, 0.8, 1.0);
-			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+	    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
 
-			//
-			// Create shaders
-			// 
-			var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-			var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+	    // Default intensity is 1. Let's dim the light a small amount
+	    light.intensity = 0.7;
 
-			gl.shaderSource(vertexShader, vertexShaderText);
-			gl.shaderSource(fragmentShader, fragmentShaderText);
+	    // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
+	    var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
 
-			gl.compileShader(vertexShader);
-			if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-				console.error('ERROR compiling vertex shader!', gl.getShaderInfoLog(vertexShader));
-				return;
-			}
+	    // Move the sphere upward 1/2 its height
+	    sphere.position.y = 1;
 
-			gl.compileShader(fragmentShader);
-			if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-				console.error('ERROR compiling fragment shader!', gl.getShaderInfoLog(fragmentShader));
-				return;
-			}
+	    // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+	    var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
 
-			var program = gl.createProgram();
-			gl.attachShader(program, vertexShader);
-			gl.attachShader(program, fragmentShader);
-			gl.linkProgram(program);
-			if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-				console.error('ERROR linking program!', gl.getProgramInfoLog(program));
-				return;
-			}
-			gl.validateProgram(program);
-			if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
-				console.error('ERROR validating program!', gl.getProgramInfoLog(program));
-				return;
-			}
-
-			//
-			// Create buffer
-			//
-			var triangleVertices = 
-			[ // X, Y,       R, G, B
-				0.0, 0.5,    1.0, 1.0, 0.0,
-				-0.5, -0.5,  0.7, 0.0, 1.0,
-				0.5, -0.5,   0.1, 1.0, 0.6
-			];
-
-			var triangleVertexBufferObject = gl.createBuffer();
-			gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
-
-			var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
-			var colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
-			gl.vertexAttribPointer(
-				positionAttribLocation, // Attribute location
-				2, // Number of elements per attribute
-				gl.FLOAT, // Type of elements
-				gl.FALSE,
-				5 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
-				0 // Offset from the beginning of a single vertex to this attribute
-			);
-			gl.vertexAttribPointer(
-				colorAttribLocation, // Attribute location
-				3, // Number of elements per attribute
-				gl.FLOAT, // Type of elements
-				gl.FALSE,
-				5 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
-				2 * Float32Array.BYTES_PER_ELEMENT // Offset from the beginning of a single vertex to this attribute
-			);
-
-			gl.enableVertexAttribArray(positionAttribLocation);
-			gl.enableVertexAttribArray(colorAttribLocation);
-
-			//
-			// Main render loop
-			//
-			gl.useProgram(program);
-			gl.drawArrays(gl.TRIANGLES, 0, 3);
+	    return scene;
+	}
+	
+	var scene = createScene();
+	
+	engine.runRenderLoop(function() {
+	    scene.render();
+	});
 };
