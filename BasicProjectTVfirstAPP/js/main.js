@@ -16,21 +16,21 @@ var init = function () {
 	   $("#osvertion").text(e.buildVersion);
     });
     
-   tizen.systeminfo.getPropertyValue("ETHERNET_NETWORK", function(e){
-	   $("#ipadress").text(e.ipAddress);
+   tizen.systeminfo.getPropertyValue("WIFI_NETWORK", function(e){
+	   console.log(e.ipAddress);
     });
-   
+   /*
    tizen.tvaudiocontrol.setVolumeChangeListener(function (v){
 	   $("#vollev").text(v);
    });
-   
+   /*
     document.addEventListener('visibilitychange', function() {
         if(document.hidden){
             // Something you want to do when hide or exit.
         } else {
             // Something you want to do when resume.
         }
-    });
+    });*/
     
     fileEnumerator.init(function() {
     	changeSource(0);
@@ -145,7 +145,7 @@ var fileEnumerator = {
                         dir.listFiles(fileEnumerator._onListFilesSuccess, fileEnumerator._onListFilesError);
                     },
                     function(e) {
-                        log("Error:" + e.message);
+                        //log("Error:" + e.message);
                     }, "r"
                 );
             }
