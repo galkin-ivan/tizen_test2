@@ -3,3 +3,20 @@
 body {
     background-color: #ffffff;
 }
+
+
+.logs {
+    overflow: auto;
+    height: 1000px;
+    font-family: monospace;
+}
+
+.right {
+    width: 100%;
+    font-size: 0.9em;
+    position:absolute;
+	display:block;
+	padding:50px;
+	top:50px; 
+	left:60px;   
+}

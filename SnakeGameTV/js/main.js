@@ -311,3 +311,112 @@ function advance(myObj){
 		myObj.advanceRight = false;
 	}
 } 
+
+
+function configure_msf()
+{
+	// Get a reference to the local "service"
+    msf.local(function(err, service) {
+        if (err) {
+            log('msf.local error: ' + err /*, logBox*/);
+            return;
+        }
+        // Create a reference to a communication "channel"
+        channel = service.channel('com.samsung.multiscreen.MultiScreenSimple');
+
+        // Connect to the channel
+        channel.connect({name:"The TV"}, function (err) {
+            if (err) {
+                return console.error(err);
+            }
+            log('MultiScreen initialized, channel opened.');
+        });
+
+        // Add a message listener. This is where you will receive messages from mobile devices
+        channel.on('say', function(msg, from){
+        	var command = extract_command_from_query(msg);
+        	log(from.attributes.name + ' says: <strong>' + msg + '</strong>');                	
+            
+        	try
+        	{
+                if (command === "volume_down"){
+                	boxs[0].advanceLeft = true;
+                }
+                else if (command  === "volume_up"){
+                	boxs[0].advanceRight = true;
+                }
+                else if (command === "channel_up"){
+                	changeSource(1);
+                }
+                else if (command === "channel_down"){
+                	changeSource(-1);
+                }
+                else if (command === "video_play"){
+                	if (!player.paused) {
+                		publishState();
+                	} else {
+                		play();
+                	}
+                }
+                else if (command === "video_pause"){
+                	if (player.paused) {
+                		publishState();
+                	} else {
+                		pause();
+                	}
+                }
+                else if (command === "video_stop"){
+                	stop();
+                }
+                else
+                {
+                    //echo(from.attributes.name + ' says: <strong>' + msg + '</strong>');                	
+                }
+        	}
+        	catch (e)
+        	{
+        		log(e.toString());
+        	}
+            
+        });
+
+        // Add a listener for when another client connects, such as a mobile device
+        channel.on('clientConnect', function(client){
+            // Send the new client a message
+        	// hannel.publish('say', 'Hello ' + client.attributes.name, client.id);
+        	publishState();
+            log("Let's welcome a new client: " + client.attributes.name);
+        });
+
+        // Add a listener for when a client disconnects
+        channel.on('clientDisconnect', function(client){
+            log("Sorry to see you go, " + client.attributes.name + ". Goodbye!");
+        });
+    });
+}
+
+function extract_command_from_query(query){
+	var splitted_query = null;
+	if (query){
+		splitted_query = query.split(' ');
+		return splitted_query[0];
+	}
+	
+	return null;
+}
+
+function log(msg) {
+	console.log(msg);
+    var logsEl = document.getElementById('logs');
+
+    if (msg) {
+        // Update logs
+        //console.log('[MultiScreen]: ', msg);
+        logsEl.innerHTML += msg + '<br />';
+    } else {
+        // Clear logs
+        logsEl.innerHTML = '';
+    }
+
+    logsEl.scrollTop = logsEl.scrollHeight;
+}
