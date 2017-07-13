@@ -98,25 +98,163 @@ window.onload = function(){
 	var scene = createScene();
 	
 	engine.runRenderLoop(function() {
-		if(boxs[0].movingbyX === true){
-			boxs[0].position.x = boxs[0].position.x + boxs[0].moveDelta;
-		}
-		else {
-			boxs[0].position.z = boxs[0].position.z + boxs[0].moveDelta;
-		}
 		
+		//------------moves each block-------------------------------------------------------------
+		for(var i=0; i<numberOfSnackBlocks; i++){
+			if(boxs[i].movingbyX === true){
+				boxs[i].position.x = boxs[i].position.x + boxs[i].moveDelta;
+			}
+			else {
+				boxs[i].position.z = boxs[i].position.z + boxs[i].moveDelta;
+			}
+		}
+		//------------moves each block-------------------------------------------------------------
+		
+		
+		//---------makes new block-----------------------------------------------------------------
 		if (boxs[0].intersectsMesh(foodBlock, false)) {
+			//--- if head toches the food --------
 			foodBlock.position.x = getRandomInt(-5, 9);
 	        foodBlock.position.z = getRandomInt(-5, 9);
+	        
+	        
+	        var boxMaterial = new BABYLON.StandardMaterial("material", scene);
+	        boxMaterial.emissiveColor = new BABYLON.Color3(0, 0.58, 0.86);
+	        boxs[numberOfSnackBlocks] = BABYLON.Mesh.CreateBox("box"+numberOfSnackBlocks, 0.5, scene);
+	        boxs[numberOfSnackBlocks].material = boxMaterial;
+	        boxs[numberOfSnackBlocks].position.y = 0.2;
+	        
+	        if(boxs[numberOfSnackBlocks - 1 ].movingbyX === true){
+	        	if(boxs[numberOfSnackBlocks-1].moveDelta < 0){
+	        		boxs[numberOfSnackBlocks].position.x = boxs[numberOfSnackBlocks-1].position.x + 0.5;
+	        	}
+	        	else{
+	        		boxs[numberOfSnackBlocks].position.x = boxs[numberOfSnackBlocks-1].position.x - 0.5;
+	        	}
+	        	boxs[numberOfSnackBlocks].position.z = boxs[numberOfSnackBlocks-1].position.z;
+	        }
+	        else{
+	        	if(boxs[numberOfSnackBlocks-1].moveDelta < 0){
+	        		boxs[numberOfSnackBlocks].position.z = boxs[numberOfSnackBlocks-1].position.z + 0.5;
+	        	}
+	        	else{
+	        		boxs[numberOfSnackBlocks].position.z = boxs[numberOfSnackBlocks-1].position.z - 0.5;
+	        	}
+	        	boxs[numberOfSnackBlocks].position.x = boxs[numberOfSnackBlocks-1].position.x;
+	        }
+		    
+	        boxs[numberOfSnackBlocks].movingbyX = boxs[numberOfSnackBlocks-1].movingbyX;
+	        boxs[numberOfSnackBlocks].moveDelta = boxs[numberOfSnackBlocks-1].moveDelta;
+	        boxs[numberOfSnackBlocks].advanceLeft = false;
+	        boxs[numberOfSnackBlocks].advanceRight = false;
+		    numberOfSnackBlocks = numberOfSnackBlocks + 1;
+	        
 			} else {
 			  //balloon1.material.emissiveColor = new BABYLON.Color4(1, 1, 1, 1);
 			}
+		//---------makes new block-----------------------------------------------------------------
 		
-		// the part about movement advancement
+		//--------advances movement of each block--------------------------------------------------
 		if(boxs[0].advanceRight || boxs[0].advanceLeft){
+			if(numberOfSnackBlocks > 1){
+				boxs[1].advanceRight = boxs[0].advanceRight;
+				boxs[1].advanceLeft = boxs[0].advanceLeft;
+				
+				boxs[1].whenToAdvanceX = boxs[0].position.x;
+				boxs[1].whenToAdvanceZ = boxs[0].position.z;
+			}
 			advance(boxs[0]);
 		}
-		
+			//---i=1 may cause a bug... maybe...)
+		for(var i=1;i<numberOfSnackBlocks;i++){
+			var madeAdvancmentRight = false;
+			var madeAdvancmentLeft = false;
+			if(boxs[i].advanceRight || boxs[i].advanceLeft){
+				
+				
+				
+				if(boxs[i].movingbyX === true){
+					if(boxs[i].moveDelta > 0){
+						if(boxs[i].position.x >= boxs[i].whenToAdvanceX){
+							madeAdvancmentRight = boxs[i].advanceRight;
+							madeAdvancmentLeft = boxs[i].advanceLeft;
+							advance(boxs[i]);
+							//----set block right after the other----
+							if(boxs[i-1].moveDelta < 0){
+				        		boxs[i].position.z = boxs[i-1].position.z + 0.5;
+				        	}
+				        	else{
+				        		boxs[i].position.z = boxs[i-1].position.z - 0.5;
+				        	}
+				        	boxs[i].position.x = boxs[i-1].position.x;
+				        	//----set block right after the other----
+						}
+					}
+					else{
+						if(boxs[i].position.x <= boxs[i].whenToAdvanceX){
+							madeAdvancmentRight = boxs[i].advanceRight;
+							madeAdvancmentLeft = boxs[i].advanceLeft;
+							advance(boxs[i]);
+							//----set block right after the other----
+							if(boxs[i-1].moveDelta < 0){
+				        		boxs[i].position.z = boxs[i-1].position.z + 0.5;
+				        	}
+				        	else{
+				        		boxs[i].position.z = boxs[i-1].position.z - 0.5;
+				        	}
+				        	boxs[i].position.x = boxs[i-1].position.x;
+				        	//----set block right after the other----
+						}
+					}
+				}
+				else{
+					if(boxs[i].moveDelta > 0){
+						if(boxs[i].position.z >= boxs[i].whenToAdvanceZ){
+							madeAdvancmentRight = boxs[i].advanceRight;
+							madeAdvancmentLeft = boxs[i].advanceLeft;
+							advance(boxs[i]);
+							//----set block right after the other----
+							if(boxs[i-1].moveDelta < 0){
+				        		boxs[i].position.x = boxs[i-1].position.x + 0.5;
+				        	}
+				        	else{
+				        		boxs[i].position.x = boxs[i-1].position.x - 0.5;
+				        	}
+				        	boxs[i].position.z = boxs[i-1].position.z;
+				        	//----set block right after the other----
+						}
+					}
+					else{
+						if(boxs[i].position.z <= boxs[i].whenToAdvanceZ){
+							madeAdvancmentRight = boxs[i].advanceRight;
+							madeAdvancmentLeft = boxs[i].advanceLeft;
+							advance(boxs[i]);
+							//----set block right after the other----
+							if(boxs[i-1].moveDelta < 0){
+				        		boxs[i].position.x = boxs[i-1].position.x + 0.5;
+				        	}
+				        	else{
+				        		boxs[i].position.x = boxs[i-1].position.x - 0.5;
+				        	}
+				        	boxs[i].position.z = boxs[i-1].position.z;
+				        	//----set block right after the other----
+						}
+					}
+				}
+			}
+			
+			if(madeAdvancmentRight === true || madeAdvancmentLeft === true){
+				if(i+1 !== numberOfSnackBlocks){
+					boxs[i+1].advanceRight = madeAdvancmentRight;
+					boxs[i+1].advanceLeft = madeAdvancmentLeft;
+					
+					boxs[i+1].whenToAdvanceX = boxs[i].position.x;
+					boxs[i+1].whenToAdvanceZ = boxs[i].position.z;
+				}
+			}
+			
+		}
+		//--------advances movement of each block--------------------------------------------------
 		
 		
 	    scene.render();
