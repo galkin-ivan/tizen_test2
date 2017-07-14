@@ -5,7 +5,7 @@ window.onload = function () {
 	document.addEventListener('rotarydetent', rotaryHandler, false);
 	
 	//ui_controller.startApp();
-	app_store.load(device_controller);
+	//app_store.load(device_controller);
 	/*device_discover_manager.set_discover_callback(
 			function(id, description){ 
 		    	console.log("found device " + description);

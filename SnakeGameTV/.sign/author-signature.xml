@@ -8,7 +8,7 @@
 </Reference>
 <Reference URI="css%2Fstyle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>SjWe9deZdtRiDag1IJ3T5mm4uSuiY8PPoimCmlmO6Ic=</DigestValue>
+<DigestValue>ZafOZtzR5OmPGd5R99gMZsKLFh98yuOkjhvspUWg+GQ=</DigestValue>
 </Reference>
 <Reference URI="icon.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -16,7 +16,7 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>yuQiZaw6kN66/ODsMEwE8Q5IsFnRba4KUBuOdhQ5e+E=</DigestValue>
+<DigestValue>UnMFM4277uJmq7gI4KruN8C5MzEQWmAZv/xMaimzNH0=</DigestValue>
 </Reference>
 <Reference URI="js%2Fbabylon.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -24,7 +24,7 @@
 </Reference>
 <Reference URI="js%2Fmain.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ReWZ7LPAOmbesTwb9fNiZZv0h0+zUrHeuV3UvpS+IEU=</DigestValue>
+<DigestValue>uWpvSoIr2W56L5XgIBeMrwoWeoMPBMQXDXPEQq5sABo=</DigestValue>
 </Reference>
 <Reference URI="js%2Fmsf-2.0.21.min.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1011,11 +1011,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-LnV0yqgxVWbTiO2UNWJJCb5nKUegsXWjhiiq39gSTYil4phuFImhQBurITVlLLvyomTNE8PFntST
-/wtr/GX55N0uHyichJ2yWszXgGPaAmIwcwlzrzKTqiHuVJiSV0CdMPYj+kHgrfHOdgQe8kkVU7H8
-9TXVSwjD2AZ0F5rSgOR5vPEeIcVvHX5Q/Vo6ale8+/uLtQVgbAvwmPPYTrEIHhRbRB4xNB3svWG3
-/5EQieytGb+YOcaDaTPFQHKGddUj1yEG6FButzOCdnmMP78wBljzlKlWE+uyS80GknI0l7lcjXtU
-FZKYPGp65HQTnrUUYuORb+e+wMypweN0qquxag==
+b3GUv6nM1bxugtMo3ZBIW7YfpnF56jDPRT+QgLxM0AOm3VTbb/lsE1fXKzPYbYjOwlvZiNKDQsga
+LApuGWam5k8syvGFy8HevQ8oOPbvgJvUZDXaQISKFoipahyQvzgHoqv94qP/X7maNpfb2UvCBoJr
+UxPz/3RtfPrB5Bi0qPfPqGZo6edNzNTNdpMOiHG0TppCHtsF9JNZnDkXaZaQqYCt5nyYQ3itJyCK
+EGRWOU9NesB5ZV8so9hGtwO/23MBcVTgJs14Rdx6CMAW5dY5URR7uIVZpNAwQAWsM+54R9WA9MZ1
+XV7nOhpooJV8KS5laBbCig9RvC4v/9r6BQhUSg==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
